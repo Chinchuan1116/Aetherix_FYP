@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/7fd4b2d67d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+    <title>Aetherix -- View Record</title>
+</head>
+<style>
+    /* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.4s ease;;
+}
+
+
+/* ===== Colours ===== */
+:root{
+    --body-color: #E4E9F7;
+    --nav-color: #4070F4;
+    --side-nav: #010718;
+    --text-color: #FFF;
+    --search-bar: #F2F2F2;
+    --search-text: #010718;
+    --side-bar:#002651;
+    --content-text-color:black;
+    --content-text-color:black;
+    --content-tab-color:#4070F4;
+    --content-tab-hover-color:rgba(74,116,232,0.3);
+    --content-tab-text-color:#4070F4;
+    --container-tableHeader-color:#4070F4;
+    --container-tableRecord-ODD-color:#F2F3F3;
+    --container-tableRecord-EVEN-color:#FFFFFF;
+}
+
+body{
+    height: 100vh;
+    background-color: var(--body-color);
+}
+
+body.dark{
+    --body-color: #242D3B;
+    --nav-color: #242526;
+    --side-nav: #242526;
+    --text-color: #FFF;
+    --search-bar: #242526;
+    --side-bar:#2F313D;
+    --content-text-color:#FFF;
+    --content-tab-color:#72a5ed;
+    --content-tab-hover-color:rgba(150, 162, 179, 0.5);
+    --content-tab-text-color:#72a5ed;
+    --container-tableHeader-color:#72a5ed;
+    --container-tableRecord-ODD-color:#495668;
+    --container-tableRecord-EVEN-color:#626f82;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    background-color: var(--nav-color);
+    z-index: 100;
+}
+
+body.dark nav{
+    border: 1px solid #393838;
+
+}
+
+nav .nav-bar{
+    position: relative;
+    height: 100%;
+    max-width: 1000px;
+    width: 100%;
+    background-color: var(--nav-color);
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .nav-bar .sidebarOpen{
+    color: var(--text-color);
+    font-size: 25px;
+    padding: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+nav .nav-bar .logo a{
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.menu .logo-toggle{
+    display: none;
+}
+
+.nav-bar .nav-links{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar .nav-links li{
+    margin: 0 10px;
+    list-style: none;
+}
+
+.nav-links li a{
+    position: relative;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-links li a::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+
+.nav-bar .darkLight-searchBox{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+.darkLight-searchBox .dark-light,
+.darkLight-searchBox .searchToggle{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+.dark-light i,
+.searchToggle i{
+    position: absolute;
+    color: var(--text-color);
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: -10px;
+}
+
+.dark-light i.sun{
+    opacity: 0;
+    margin-top: -10px;
+    pointer-events: none;
+}
+
+.dark-light.active i.sun{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dark-light.active i.moon{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchToggle i.cancel{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchToggle.active i.cancel{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.searchToggle.active i.search{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchBox{
+    position: relative;
+}
+
+.searchBox .search-field{
+    position: absolute;
+    bottom: -85px;
+    right: 5px;
+    height: 50px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    background-color: var(--nav-color);
+    padding: 3px;
+    border-radius: 6px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.searchToggle.active ~ .search-field{
+    bottom: -74px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.search-field::before{
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: -4px;
+    height: 12px;
+    width: 12px;
+    background-color: var(--nav-color);
+    transform: rotate(-45deg);
+    z-index: -1;
+}
+
+.search-field input{
+    height: 100%;
+    width: 100%;
+    padding: 0 45px 0 15px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--search-text);
+    background-color: var(--search-bar);
+}
+
+body.dark .search-field input{
+    color: var(--text-color);
+}
+
+.search-field i{
+    position: absolute;
+    color: var(--nav-color);
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+body.dark .search-field i{
+    color: var(--text-color);
+}
+.logo_image{
+    width: 75px;
+    height: 60px;
+}
+#logoclass{
+    display: flex;
+}
+@media (max-width: 790px) {
+    nav .nav-bar .sidebarOpen{
+        display: block;
+    }
+
+    .menu{
+        position: fixed;
+        height: 100%;
+        width: 320px;
+        left: -100%;
+        top: 0;
+        padding: 20px;
+        background-color: var(--side-nav);
+        z-index: 100;
+        transition: all 0.4s ease;
+    }
+
+    nav.active .menu{
+        left: -0%;
+    }
+
+    nav.active .nav-bar .navLogo a{
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .menu .logo-toggle{
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-toggle .siderbarClose{
+        color: var(--text-color);
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav-links{
+        flex-direction: column;
+        padding-top: 30px;
+    }
+
+    .nav-links li a{
+        display: block;
+        margin-top: 20px;
+    }
+}
+.content{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    padding-top: 70px;
+}
+.side-bar{
+    background-color: var(--side-bar);
+    color: var(--text-color);
+    width: 20vw;
+    height: 100%;
+    min-width: 300px;
+    position: fixed;
+}
+.side-bar_Title{
+    margin-top: 50px;
+    font-size: 30px;
+    margin-bottom: 42px;
+    padding-left: 20px;
+    cursor: default;
+}
+.side-bar_Folder button{
+    background-color: var(--side-bar);
+    width: 100%;
+    color: var(--text-color);
+    border: none;
+    font-size: 20px;
+    display: flex;
+    line-height: 3.5em;
+    cursor: pointer;
+    height: 70px;
+}
+.side-bar_Folder button:hover{
+    background-color: #908888;
+}
+.side-bar_Folder button i {
+    font-size: 30px;
+    margin-top: 17px;
+    margin-left: 20px;
+    margin-right: 0.5em;
+    color: white;
+}
+.side-bar_Folder button .ribbon {
+  width: 10px;
+  background-color: aqua;
+  height: 100%;
+}
+.container{
+    width: 80%;
+    height: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 40px;
+    margin-left: 20vw;
+}
+.container_Header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.container_Title{
+    color: var(--content-text-color);
+    font-size: 35px;
+    cursor: default;
+}
+.container_Path{
+    color: var(--content-text-color);
+    font-size: 15px;
+    margin-top: -10px;
+    cursor: pointer;
+}
+.container_Button{
+    color: var(--text-color);
+    font-size: 20px;
+    background-color: #002651;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.container_Button:hover{
+    background-color: grey;
+    color: black;
+}
+.container hr{
+    width: calc(100% + 100px);
+    margin-left: -50px;
+    margin-bottom: 30px;
+}
+.container .nav{
+    position: relative;
+    flex-wrap: initial;
+    width: 40%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+.container .nav label{
+    display: block;
+    height: 100%;
+    width: 33%;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    color: var(--content-tab-text-color);
+    font-size: 17px;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.container .nav label:hover{
+    background: var(--content-tab-hover-color);
+}
+#host:checked ~ .nav label.host,
+#description:checked ~ .nav label.description,
+#report:checked ~ .nav label.report{
+    color: #fff;
+}
+.nav label i{
+  padding-right: 7px;
+}
+.nav .slider{
+  position: absolute;
+  height: 100%;
+  width: 33%;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  border-radius: 5px;
+  background: var( --content-tab-color);
+  transition: all 0.3s ease;
+}
+input[type="radio"]{
+  display: none;
+}
+#report:checked ~ .nav .slider{
+  left: 34%;
+}
+#description:checked ~ .nav .slider{
+  left: 67%;
+}
+
+
+section .content{
+  display: none;
+}
+#host:checked ~ section .content-1,
+#report:checked ~ section .content-2,
+#description:checked ~ section .content-3{
+  display: block;
+  padding-top: 0px;
+  margin-top:-9px
+}
+section .content .title{
+  font-size: 21px;
+  font-weight: 500;
+  margin: 30px 0 10px 0;
+}
+section .content p{
+text-align: justify;
+}
+.container_Table{
+    width: 100%;
+    font-size: 17px;
+    height: 50px;
+    margin-top: 50px;
+    color: var(--content-text-color);
+    cursor: default;
+}
+.container_TableHeader{
+    font-size: 17px;
+    display: flex;
+    height: 40px;
+    background-color: var(--container-tableHeader-color);
+    color: white;
+}
+.container_TableHeader2, .container_TableHeader3{
+    font-size: 17px;
+    padding-top: 7px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    background-color: var(--container-tableHeader-color);
+
+}
+.container_TableRow:nth-child(odd){
+    font-size: 15px;
+    display: flex;
+    min-height: 30px;
+    padding: 10px 0px;
+    cursor: pointer;
+    background-color: var(--container-tableRecord-ODD-color);
+    color: var(--content-text-color)!important;
+    text-align: initial;
+    width: 100%;
+    border: none;
+}
+.container_TableRow:nth-child(even){
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    min-height: 30px;
+    padding: 10px 0px;
+    text-align: initial;
+    color: var(--content-text-color)!important;
+    width: 100%;
+    border: none;
+    background-color: var(--container-tableRecord-EVEN-color);
+}
+.container_TableRow:nth-child(odd) button{
+    background-color: var(--container-tableRecord-ODD-color);
+    border: none;
+}
+.container_TableRow:nth-child(even) button{
+    background-color: var(--container-tableRecord-EVEN-color);
+    border: none;
+}
+.container_TableHeader p, .container_left, .container_right{
+    margin-left: 5%;
+    width: 25%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.container_report, .container_description{
+    border-radius: 0px 0px 10px 10px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    padding-left: 40px;
+    background-color: var(--container-tableRecord-ODD-color);
+    white-space: break-spaces;
+}
+.container_message{
+    background: white;
+    border-radius: 0px 0px 10px 10px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    padding-left: 40px;
+}
+.container_right{
+    display: flex;
+}
+.container_rightGroup_Critical{
+    background-color: red;
+    color: white;
+    width: 42.8%;
+    text-align: center;
+}
+.container_rightGroup_High{
+    background-color: #FFA500;
+    color: white;
+    width: 14.2%;
+    text-align: center;
+}
+.container_rightGroup_Medium{
+    background-color: #FFFF00;
+    color: black;
+    width: 33.3%;
+    text-align: center;
+}
+.container_rightGroup_Low{
+    background-color: #03fc39;
+    color: black;
+    width: 33.3%;
+    text-align: center;
+}
+.container_rightGroup_Info{
+    background-color: #0ab0f2;
+    color: white;
+    width:9.5%;
+    text-align: center;
+}
+.container_description_row{
+    margin-bottom: 10px;
+}
+#container_description_row_title{
+    font-weight: bold;
+}
+.tips{
+    text-decoration: none !important;
+}
+</style>
+
+<body>
+    <nav>
+        <div class="nav-bar">
+            <i class='bx bx-menu sidebarOpen' ></i>
+          
+            <a href="/home"><span class="logo navLogo" id="logoclass"><img src={{logo_image}} class="logo_image" alt="Aetherix Logo">Aetherix</br>Essestials</span></a>
+
+            <div class="menu">
+                <div class="logo-toggle">
+                    <span class="logo"><a href="/home">Aetherix Essestials</a></span>
+                    <i class='bx bx-x siderbarClose'></i>
+                </div>
+                <ul class="nav-links">
+                    <abbr class="tips" title="To create new scan"><a href="/scan">Scan</a></li></abbr>
+                    <abbr class="tips" title="To Know about Aetherix"><li><a href="/about">About</a></li></abbr>
+                    <abbr class="tips" title="To contact Aetherix"><li><a href="/contact">Contact</a></li></abbr>
+                    <abbr class="tips" title="To report bug/issues to Aetherix"><li><a href="mailto:aetherix666@gmail.com">Report Issues</a></li></abbr>
+                    <abbr class="tips" title="To manage account"><li><a href="/account">Account</a></li></abbr>
+                </ul>
+            </div>
+
+            <div class="darkLight-searchBox">
+                <div class="dark-light">
+                    <abbr class="tips" title="To change system theme"><i class='bx bx-moon moon'></i></abbr>
+                    <abbr class="tips" title="To change system theme"><i class='bx bx-sun sun'></i></abbr>
+                </div>
+
+                <div class="searchBox">
+                   <div class="searchToggle">
+                    <i class='bx bx-x cancel'></i>
+                   </div>
+
+                    <div class="search-field">
+                        <input type="text" placeholder="Search...">
+                        <i class='bx bx-search'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="side-bar">
+            <div class="side-bar_Title">
+                <p>Folders</p>
+            </div>
+            <form  action="{{ url_for('homepage') }}" method="post">
+                <input style="display: none;" class="form-control" id="foldername" name="foldername" type="text" />
+                <div class="side-bar_Folder" id="myDIV" >
+                </div>   
+            </form>
+        </div>
+        <div class="container">
+            <div class="container_Header">
+                <div>
+                    <p class="container_Title">{{selectedRecord}}</p>
+                    <p class="container_Path" onclick="handlePath()">{{previousPath}}</p>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <input type="radio" name="slider" checked id="host">
+                <input type="radio" name="slider" id="report">
+                <input type="radio" name="slider" id="description">
+                <div class="nav">
+                  <label for="host" class="host"><i class="fa-solid fa-globe"></i>Hosts</label>
+                  <label for="report" class="report"><i class="fa-regular fa-file-lines"></i>Report</label>
+                  <label for="description" class="description"><i class="fa-regular fa-note-sticky"></i>Description</label>
+                  <div class="slider"></div>
+                </div>
+                <section>
+                    <form  action="{{ url_for('viewvulnerabilitypage') }}" method="post">
+                        <input style="display: none;" class="form-control" id="targetResult" name="targetResult" type="text" />
+                        <input style="display: none;" class="form-control" id="targetFunction" name="targetFunction" type="text" />
+                        <div class="content content-1" id="content-1">
+                            <div class="container_Table">
+                                <div class="container_TableHeader">
+                                    <p id="container_TableHeader_title1">Host</p>
+                                    <p id="container_TableHeader_title2">Vulnerability</p>
+                                </div>
+                                <div class="container_TableContent"  id="container_TableContent">  
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                        <div class="content content-2" id="content-2">
+                            <div class="container_Table" id="content2_container_Table">
+                                <div class="container_TableHeader2">
+                                    <p>Original Report</p>    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content content-3" id="content-3">
+                            <div class="container_Table" id="content3_container_Table">
+                                <div class="container_TableHeader3">
+                                    <p>Scan Description</p>    
+                                </div>
+                            </div>
+                        </div>
+                   
+                </section>
+            </div>
+        </div>
+       
+    </div>
+    
+</body>
+
+<script>
+    var receivedFolderArray = JSON.parse('{{ folderArray|safe }}');
+    var receivedRecordName = ('{{ selectedRecord|safe }}');
+    var receivedPointerFolder = '{{ pointerFolder|safe }}';
+    var receivedResultArray = JSON.parse(`{{ResultArray | safe}}`)
+    var receivedRecordFunction = '{{RecordFunction | safe}}'
+    var receivedRecordReport = `{{RecordReport | safe}}`
+    var receivedRecordDescription = '{{RecordDescription | safe}}'
+    var receivedRecord = '{{selectedRecord | safe}}'
+    var receivedTarget = '{{RecordTarget | safe}}'
+    if(receivedRecordFunction == 'Nikto'){
+        NiktoDetails = receivedResultArray[0]['Details']
+        var tableHeaderTitle1 = document.getElementById("container_TableHeader_title1")
+        var tableHeaderTitle2 = document.getElementById("container_TableHeader_title2")
+       
+        tableHeaderTitle1.textContent = "URL link"
+        tableHeaderTitle2.textContent = "Description"
+        for(let i =0;i<NiktoDetails.length;i++){
+            const para = document.createElement("div");
+            para.classList.add("container_TableRow");
+            document.getElementById("container_TableContent").appendChild(para);
+            para.innerHTML = `<div class="container_left"><p>${NiktoDetails[i]['url']}</p></div><div class="container_right"><p>${NiktoDetails[i]['Description']}</p></div>`;
+        }
+        var elementsToModify = document.querySelectorAll('.container_TableHeader p, .container_left, .container_right');
+        elementsToModify.forEach(function(element) {
+            element.style.width = '40%';
+        });
+    }else{
+        for(let j =0; j < receivedResultArray.length; j++){
+        var total = receivedResultArray[j]["Total"]
+        var Critical = (receivedResultArray[j]["Critical"] / total) * 100
+        var High = (receivedResultArray[j]["High"] / total) * 100
+        var Medium = (receivedResultArray[j]["Medium"] / total) * 100
+        var Low = (receivedResultArray[j]["Low"] / total) * 100
+        var Info = (receivedResultArray[j]["Info"] / total) * 100
+        const para = document.createElement("button");
+        para.classList.add("container_TableRow");
+        para.addEventListener("click",()=>{handleRecord(receivedResultArray)})
+        document.getElementById("container_TableContent").appendChild(para);
+        para.innerHTML = `<div class="container_left"><p>${receivedResultArray[j]['Host']}</p></div><div class="container_right"><div class="container_rightGroup_Critical" id= "container_rightGroup_Critical" style="width:${Critical}%">${receivedResultArray[j]['Critical']}</div><div class="container_rightGroup_High" id="container_rightGroup_High" style="width:${High}%">${receivedResultArray[j]['High']}</div><div class="container_rightGroup_Medium" id="container_rightGroup_Medium" style="width:${Medium}%">${receivedResultArray[j]['Medium']}</div><div class="container_rightGroup_Low" id="container_rightGroup_Low" style="width:${Low}%">${receivedResultArray[j]['Low']}</div><div class="container_rightGroup_Info" id="container_rightGroup_Info" style="width:${Info}%">${receivedResultArray[j]['Info']}</div></div>`;
+        }
+
+        var infoContainer = document.getElementById("container_rightGroup_Critical").style
+        if(infoContainer.width == "0%"){
+            infoContainer.display = "none"
+        }
+        var infoContainer = document.getElementById("container_rightGroup_High").style
+        if(infoContainer.width == "0%"){
+            infoContainer.display = "none"
+        }
+        var infoContainer = document.getElementById("container_rightGroup_Medium").style
+        if(infoContainer.width == "0%"){
+            infoContainer.display = "none"
+        }
+        var infoContainer = document.getElementById("container_rightGroup_Low").style
+        if(infoContainer.width == "0%"){
+            infoContainer.display = "none"
+        }
+        var infoContainer = document.getElementById("container_rightGroup_Info").style
+        if(infoContainer.width == "0%"){
+            infoContainer.display = "none"
+        }
+    }
+    
+    if(receivedRecordReport){
+        const para = document.createElement("pre");
+        para.classList.add("container_report");
+        document.getElementById("content2_container_Table").appendChild(para);
+        const textNode = document.createTextNode(receivedRecordReport);
+        para.appendChild(textNode);
+    }
+
+    const para = document.createElement("div");
+    para.classList.add("container_description");
+    document.getElementById("content3_container_Table").appendChild(para);
+    para.innerHTML = `<div class="container_description_row"><p id="container_description_row_title">Scan Name:</p><p>${receivedRecord}</p></div><div class="container_description_row"><p id="container_description_row_title">Scan Target:</p><p>${receivedTarget}</p></div><div class="container_description_row"><p id="container_description_row_title">Scan Type:</p><p>${receivedRecordFunction}</p></div><div class="container_description_row"><p id="container_description_row_title">Scan Description:</p><p>${receivedRecordDescription}</p></div>`;
+
+    for(let i =0; i< receivedFolderArray.length; i++){
+        const para = document.createElement("button");
+        para.addEventListener("click",function(){
+            document.getElementById('foldername').value = receivedFolderArray[i]
+        })
+        document.getElementById("myDIV").appendChild(para);
+        if(receivedFolderArray[i] === receivedPointerFolder){
+            para.innerHTML = `<div class="ribbon"></div><abbr class="tips" title="Open ${receivedFolderArray[i]} Folder"><i class="fa-regular fa-folder-open"></i> ${receivedFolderArray[i]}  </abbr> `;
+            para.style.backgroundColor = '#908888'
+        }else{
+            para.innerHTML = `<abbr class="tips" title="Open ${receivedFolderArray[i]} Folder"><i class="fa-solid fa-folder"></i> ${receivedFolderArray[i]}  </abbr>`;
+        }        
+    }
+
+    
+    function handleRecord(data){
+        document.getElementById('targetResult').value = JSON.stringify(data) 
+        document.getElementById('targetFunction').value = receivedRecordFunction
+    }
+    function handlePath(){
+        window.location.href = "/home";
+    }
+   
+</script>
+<script>
+    const body = document.querySelector("body"),
+    nav = document.querySelector("nav"),
+    modeToggle = document.querySelector(".dark-light"),
+    searchToggle = document.querySelector(".searchToggle"),
+    sidebarOpen = document.querySelector(".sidebarOpen"),
+    siderbarClose = document.querySelector(".siderbarClose");
+
+    let getMode = localStorage.getItem("mode");
+        if(getMode && getMode === "dark-mode"){
+            body.classList.add("dark");
+        }
+
+// js code to toggle dark and light mode
+    modeToggle.addEventListener("click" , () =>{
+    modeToggle.classList.toggle("active");
+    body.classList.toggle("dark");
+
+    // js code to keep user selected mode even page refresh or file reopen
+    if(!body.classList.contains("dark")){
+        localStorage.setItem("mode" , "light-mode");
+    }else{
+        localStorage.setItem("mode" , "dark-mode");
+    }
+    });
+
+    searchToggle.addEventListener("click" , () =>{
+        searchToggle.classList.toggle("active");
+    });
+ 
+    sidebarOpen.addEventListener("click" , () =>{
+        nav.classList.add("active");
+    });
+
+    body.addEventListener("click" , e =>{
+        let clickedElm = e.target;
+        if(!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains("menu")){
+            nav.classList.remove("active");
+        }
+    });
+
+</script>
+</html>

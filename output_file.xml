@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///C:/Program Files (x86)/Nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.80 scan initiated Mon Jul 17 13:30:57 2023 as: nmap -sS -Pn -n -T4 -oA output_file -p 80,443,8080 192.168.9.128 -->
+<nmaprun scanner="nmap" args="nmap -sS -Pn -n -T4 -oA output_file -p 80,443,8080 192.168.9.128" start="1689571857" startstr="Mon Jul 17 13:30:57 2023" version="7.80" xmloutputversion="1.04">
+<scaninfo type="syn" protocol="tcp" numservices="3" services="80,443,8080"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1689571875" endtime="1689571875"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.9.128" addrtype="ipv4"/>
+<address addr="00:0C:29:8D:C9:83" addrtype="mac" vendor="VMware"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="closed" reason="reset" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="reset" reason_ttl="64"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="reset" reason_ttl="64"/><service name="http-proxy" method="table" conf="3"/></port>
+</ports>
+<times srtt="1000" rttvar="2109" to="100000"/>
+</host>
+<runstats><finished time="1689571875" timestr="Mon Jul 17 13:31:15 2023" elapsed="21.38" summary="Nmap done at Mon Jul 17 13:31:15 2023; 1 IP address (1 host up) scanned in 21.38 seconds" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

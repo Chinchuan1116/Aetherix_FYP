@@ -1,0 +1,11 @@
+# Nmap 7.80 scan initiated Mon Jul 17 13:30:57 2023 as: nmap -sS -Pn -n -T4 -oA output_file -p 80,443,8080 192.168.9.128
+Nmap scan report for 192.168.9.128
+Host is up (0.0010s latency).
+
+PORT     STATE  SERVICE
+80/tcp   closed http
+443/tcp  closed https
+8080/tcp closed http-proxy
+MAC Address: 00:0C:29:8D:C9:83 (VMware)
+
+# Nmap done at Mon Jul 17 13:31:15 2023 -- 1 IP address (1 host up) scanned in 21.38 seconds

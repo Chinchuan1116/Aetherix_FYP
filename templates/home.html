@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/7fd4b2d67d.js" crossorigin="anonymous"></script>
+    <title>Aetherix -- Home</title>
+</head>
+<style>
+    /* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.4s ease;;
+}
+
+
+/* ===== Colours ===== */
+:root{
+    --body-color: #E4E9F7;
+    --nav-color: #4070F4;
+    --side-nav: #010718;
+    --text-color: #FFF;
+    --search-bar: #F2F2F2;
+    --search-text: #010718;
+    --side-bar:#002651;
+    --content-button-color:#4070F4;
+    --content-text-color:black;
+    --container-tableHeader-color:#4070F4;
+    --container-tableRecord-ODD-color:#F2F3F3;
+    --container-tableRecord-EVEN-color:#FFFFFF;
+    --content-create-folder:black
+}
+
+body{
+    height: 100vh;
+    background-color: var(--body-color);
+}
+
+body.dark{
+    --body-color: #242D3B;
+    --nav-color: #242526;
+    --side-nav: #242526;
+    --text-color: #FFF;
+    --search-bar: #242526;
+    --side-bar:#2F313D;
+    --content-button-color:#72a5ed;
+    --content-text-color:#FFF;
+    --container-tableHeader-color:#72a5ed;
+    --container-tableRecord-ODD-color:#495668;
+    --container-tableRecord-EVEN-color:#626f82;
+    --content-create-folder:navajowhite
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    background-color: var(--nav-color);
+    z-index: 100;
+}
+
+body.dark nav{
+    border: 1px solid #393838;
+
+}
+
+nav .nav-bar{
+    position: relative;
+    height: 100%;
+    max-width: 1000px;
+    width: 100%;
+    background-color: var(--nav-color);
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .nav-bar .sidebarOpen{
+    color: var(--text-color);
+    font-size: 25px;
+    padding: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+nav .nav-bar .logo a{
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.menu .logo-toggle{
+    display: none;
+}
+
+.nav-bar .nav-links{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar .nav-links li{
+    margin: 0 10px;
+    list-style: none;
+}
+
+.nav-links li a{
+    position: relative;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-links li a::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-links li:hover a::before{
+    opacity: 1;
+}
+
+.nav-bar .darkLight-searchBox{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+.darkLight-searchBox .dark-light,
+.darkLight-searchBox .searchToggle{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+.dark-light i,
+.searchToggle i{
+    position: absolute;
+    color: var(--text-color);
+    margin-top: -10px;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dark-light i.sun{
+    opacity: 0;
+    pointer-events: none;
+    margin-top: -10px;
+}
+
+.dark-light.active i.sun{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dark-light.active i.moon{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchToggle i.cancel{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchToggle.active i.cancel{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.searchToggle.active i.search{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchBox{
+    position: relative;
+}
+
+.searchBox .search-field{
+    position: absolute;
+    bottom: -85px;
+    right: 5px;
+    height: 50px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    background-color: var(--nav-color);
+    padding: 3px;
+    border-radius: 6px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.searchToggle.active ~ .search-field{
+    bottom: -74px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.search-field::before{
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: -4px;
+    height: 12px;
+    width: 12px;
+    background-color: var(--nav-color);
+    transform: rotate(-45deg);
+    z-index: -1;
+}
+
+.search-field input{
+    height: 100%;
+    width: 100%;
+    padding: 0 45px 0 15px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--search-text);
+    background-color: var(--search-bar);
+}
+
+body.dark .search-field input{
+    color: var(--text-color);
+}
+
+.search-field i{
+    position: absolute;
+    color: var(--nav-color);
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+body.dark .search-field i{
+    color: var(--text-color);
+}
+.logo_image{
+    width: 75px;
+    height: 60px;
+}
+#logoclass{
+    display: flex;
+}
+@media (max-width: 790px) {
+    nav .nav-bar .sidebarOpen{
+        display: block;
+    }
+
+    .menu{
+        position: fixed;
+        height: 100%;
+        width: 320px;
+        left: -100%;
+        top: 0;
+        padding: 20px;
+        background-color: var(--side-nav);
+        z-index: 100;
+        transition: all 0.4s ease;
+    }
+
+    nav.active .menu{
+        left: -0%;
+    }
+
+    nav.active .nav-bar .navLogo a{
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .menu .logo-toggle{
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-toggle .siderbarClose{
+        color: var(--text-color);
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav-links{
+        flex-direction: column;
+        padding-top: 30px;
+    }
+
+    .nav-links li a{
+        display: block;
+        margin-top: 20px;
+    }
+}
+.content{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    padding-top: 70px;
+}
+.side-bar{
+    background-color: var(--side-bar);
+    color: var(--text-color);
+    width: 20vw;
+    height: 100%;
+    min-width: 300px;
+    position: fixed; /* Add fixed positioning */
+   
+}
+.side-bar_Title{
+    margin-top: 50px;
+    font-size: 30px;
+    margin-bottom: 42px;
+    padding-left: 20px;
+    cursor: default;
+}
+.side-bar_Folder button{
+    background-color: var(--side-bar);
+    width: 100%;
+    color: var(--text-color);
+    border: none;
+    font-size: 20px;
+    display: flex;
+    line-height: 3.5em;
+    cursor: pointer;
+    height: 70px;
+}
+.side-bar_Folder button:hover{
+    background-color: #908888;
+}
+.side-bar_Folder button i {
+    font-size: 30px;
+    margin-top: 17px;
+    margin-left: 20px;
+    margin-right: 0.5em;
+    color: white;
+}
+.side-bar_Folder button .ribbon {
+  width: 10px;
+  background-color: aqua;
+  height: 100%;
+}
+.container{
+    width: 80%;
+    height: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 40px;
+    margin-left: 20vw;
+}
+.container_Header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.container_Title{
+    color: var(--content-text-color);
+    font-size: 35px;
+    cursor: default;
+}
+.container_Path{
+    color: var(--content-text-color);
+    font-size: 15px;
+    margin-top: -10px;
+    cursor: pointer;
+}
+.container_Button{
+    color: var(--text-color);
+    font-size: 20px;
+    background-color: var(--content-button-color);
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.container_Button:hover{
+    background-color: #b2b6c1;
+    color: white;
+}
+.container hr{
+    width: calc(100% + 100px);
+    margin-left: -50px;
+    margin-top: 44px;
+    margin-bottom: 30px;
+}
+.container_RecordHeader{
+    display: flex;
+}
+.container_SearchBox{
+    width: 220px;
+    height: 40px;
+    font-size: 15px;
+    padding-left: 10px; 
+    border-radius: 0px 0px 0px 0px;
+}
+.container_SearchButton{
+    height: 40px;
+    width: 40px;
+    border-radius: 0px 10px 10px 0px;
+}
+#container_Amount{
+    margin-top: 6px;
+    margin-left: 30px;
+    font-size: 20px;
+    color: var(--content-text-color);
+}
+.container_Table{
+    width: 100%;
+    font-size: 17px;
+    height: 50px;
+    margin-top: 50px;
+    color: var(--content-text-color);
+    cursor: default;
+}
+.container_TableHeader{
+    font-size: 17px;
+    transition: none;
+    display: flex;
+    height: 40px;
+    background-color: var(--container-tableHeader-color);
+}
+.container_TableRow:nth-child(odd){
+    font-size: 15px;
+    display: flex;
+    padding: 5px 0px;
+    cursor: pointer;
+    background-color: var(--container-tableRecord-ODD-color);
+    color: var(--content-text-color)!important;
+    text-align: initial;
+    width: 100%;
+    border: none;
+}
+.container_TableRow:nth-child(even){
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    padding: 5px 0px;
+    text-align: initial;
+    color: var(--content-text-color)!important;
+    width: 100%;
+    border: none;
+    background-color: var(--container-tableRecord-EVEN-color);
+}
+.container_TableRow:nth-child(odd) button{
+    background-color: var(--container-tableRecord-ODD-color);
+    border: none;
+}
+.container_TableRow:nth-child(even) button{
+    background-color: var(--container-tableRecord-EVEN-color);
+    border: none;
+}
+.container_TableHeader p, .container_TableRow p{
+    margin-left: 5%;
+    width: 25%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+#container_TableRow_Action{
+    margin-left: 5%;
+    width: 25%;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: red;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 25px;
+}
+#container_TableHeader_Action,#container_TableRow_Action{
+    width: 10%;
+    text-align: center;
+}
+.input {
+		display: block;
+		margin-bottom: 13px;
+		margin-top: 11px;
+        margin-left: auto;
+        margin-right: auto;
+	}
+	.input label {
+		display: block;
+		margin-bottom: 3px;
+		font-size: 16px;
+        transform: translateX(-70px);
+		color: var(--content-text-color);
+		cursor: pointer;
+	}
+	.input input {
+		width: 70%;
+		padding: 10px;
+		outline: none;
+		border: none;
+		font-size: 15px;
+		border-radius: 4px;
+		background: #0000002b;
+		color: white;
+		transition: all 0.2s ease;
+	}
+	.input input:hover {
+		background: white;
+        color: black;
+	}
+	.input input:focus {
+		box-shadow: 0px 2px 2px #0000002b , 0px 5px 10px #00000036;
+		background: white;
+        color: black;
+	}
+    .create_folder{
+        width: 400px;
+        height: 200px;
+        text-align: center;
+        background: var(--body-color);;
+        padding: 20px;
+        position: absolute;
+        margin-left: 20vw;
+        color: var(--content-text-color);
+        border: solid 5px var(--content-create-folder);
+        border-radius: 5px;
+        display: none;
+    }
+    .login-btn {
+		margin-top: 10px;
+		margin-bottom: 15px;
+		padding: 8px 15px;
+		font-size: 14px;
+		background: #00000038;
+		border: 2px solid #38363654;
+		color: #e1e1e1;
+		border-radius: 4px;
+		width: 70%;
+		transition: all 0.2s cubic-bezier(.79,.14,.15,.86);
+		cursor: pointer;
+	}
+	.login-btn:hover {
+		background: #0663b4;
+		transition: all 0.1s ease;
+	}
+	.login-btn:focus {
+		box-shadow: 0px 0px 0px 2px #a7a7a7b5;
+		background: #00000061;
+	}
+    .create_folder_Icon{
+        color: red;
+        font-size: 30px;
+        font-weight: bold;
+        position: absolute;
+        margin-left: 335px;
+        margin-top: -30px;
+    }
+#folder_message{
+    color: red;
+    display: none;
+}
+.tips{
+    text-decoration: none !important;
+}
+
+</style>
+
+<body>
+    <nav>
+        <div class="nav-bar">
+            <i class='bx bx-menu sidebarOpen' ></i>
+            <a href="/home"><span class="logo navLogo" id="logoclass"><img src={{logo_image}} class="logo_image" alt="Aetherix Logo">Aetherix</br>Essestials</span></a>
+            <div class="menu">
+                <div class="logo-toggle">
+                    <span class="logo"><a href="/home">Aetherix Essestials</a></span>
+                    <i class='bx bx-x siderbarClose'></i>
+                </div>
+                <ul class="nav-links">
+                    <abbr class="tips" title="To create new scan"><a href="/scan">Scan</a></li></abbr>
+                    <abbr class="tips" title="To Know about Aetherix"><li><a href="/about">About</a></li></abbr>
+                    <abbr class="tips" title="To contact Aetherix"><li><a href="/contact">Contact</a></li></abbr>
+                    <abbr class="tips" title="To report bug/issues to Aetherix"><li><a href="mailto:aetherix666@gmail.com">Report Issues</a></li></abbr>
+                    <abbr class="tips" title="To manage account"><li><a href="/account">Account</a></li></abbr>
+                </ul>
+            </div>
+
+            <div class="darkLight-searchBox">
+                <div class="dark-light">
+                    <abbr class="tips" title="To change system theme"><i class='bx bx-moon moon'></i></abbr>
+                    <abbr class="tips" title="To change system theme"><i class='bx bx-sun sun'></i></abbr>
+                </div>
+
+                <div class="searchBox">
+                   <div class="searchToggle">
+                    <i class='bx bx-x cancel'></i>
+                   </div>
+
+                    <div class="search-field">
+                        <input type="text" placeholder="Search...">
+                        <i class='bx bx-search'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="side-bar">
+            <div class="side-bar_Title">
+                <p>Folders</p>
+            </div>
+            <form  action="{{ url_for('homepage') }}" method="post">
+                <input style="display: none;" class="form-control" id="foldername" name="foldername" type="text" />
+                <div class="side-bar_Folder" id="myDIV" >
+                </div>   
+            </form>
+        </div>
+        <div class="container">
+            <div class="container_Header">
+                <p class="container_Title">{{pointerFolder}}</p>
+                <div class="buttons">
+                    <abbr class="tips" title="Create New Folder"><button class="container_Button" onclick="handleNewFolder()"> + New Folder</button></abbr>
+                    <abbr class="tips" title="Create New Scan"><button class="container_Button" onclick="handlePath()"> + New Scan</button></abbr>
+                </div>
+            </div>
+            <hr>
+            <div class="container_RecordHeader">
+                <input type="text" class="container_SearchBox" name="search_input" placeholder="Search Records...">
+                <button class="container_SearchButton" onclick="handleSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <p id="container_Amount"></p>
+            </div>   
+            <div class="create_folder" id="create_folder">
+                <form action="{{ url_for('homepage') }}" method="post">  
+                    <div class="create_folder_Icon" onclick="handleClose()">X</div>
+                    <div class="input">
+                        <label for="folder">Folder Name</label>
+                        <input type="text" id="folder" name="folder" autocomplete="false" required/>
+                    </div>
+                    <p id="folder_message"></p>
+                    <button class="login-btn">Create Folder</button>
+                </form>
+            </div>
+            <div class="container_Table">
+                <div class="container_TableHeader">
+                    <p>Name</p>
+                    <p>Schedule</p>
+                    <p>TimeDate</p>
+                    <p id="container_TableHeader_Action">Action</p>
+                </div>
+                
+                <form  action="{{ url_for('homepage') }}" method="post">
+                    <input style="display: none;" class="form-control" id="targetData" name="targetData" type="text" />
+                    <input style="display: none;" class="form-control" id="targetRecord" name="targetRecord" type="text" />
+                    <div class="container_TableContent"  id="container_TableContent">                   
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<script>
+    var receivedFolderMessage = '{{folderMessage |safe}}'
+    var receivedFolderArray = JSON.parse('{{ folderArray|safe }}');
+    var receivedPointerFolder = '{{ pointerFolder|safe }}';
+    var receivedRecordArray =  JSON.parse('{{ recordArray|safe }}');
+    for(let i = 0; i < receivedFolderArray.length; i++){
+        const para = document.createElement("button");
+        para.addEventListener("click",function(){
+            document.getElementById('foldername').value = receivedFolderArray[i]
+        })
+        document.getElementById("myDIV").appendChild(para);
+        if(receivedFolderArray[i] === receivedPointerFolder){
+            para.innerHTML = `<div class="ribbon"></div><abbr class="tips" title="Open ${receivedFolderArray[i]} Folder"><i class="fa-regular fa-folder-open"></i> ${receivedFolderArray[i]}  </abbr> `;
+            para.style.backgroundColor = '#908888'
+        }else{
+            para.innerHTML = `<abbr class="tips" title="Open ${receivedFolderArray[i]} Folder"><i class="fa-solid fa-folder"></i> ${receivedFolderArray[i]}  </abbr>`;
+        }         
+        
+    }
+    handleSearch()
+    function handleSearch(){
+        const inputField = document.querySelector('.container_SearchBox').value;
+        const containerTable = document.getElementById("container_TableContent");
+
+        while (containerTable.firstChild) {
+            containerTable.removeChild(containerTable.firstChild);
+        }
+
+        if(inputField.length < 1){         
+            document.getElementById('container_Amount').innerHTML = receivedRecordArray.length + " Records"
+            for(let j =0; j < receivedRecordArray.length; j++){
+                const para = document.createElement("button");
+                para.classList.add("container_TableRow");
+                para.addEventListener("click",()=>{handleRecord(receivedRecordArray[j][0] + "|" + receivedRecordArray[j][1])})
+                document.getElementById("container_TableContent").appendChild(para);
+                para.innerHTML = `<p>${receivedRecordArray[j][1]}</p><p>On Demand</p><p>${receivedRecordArray[j][2]}</p><button id="container_TableRow_Action" onclick="handleDelete('${receivedRecordArray[j][0]}|${receivedRecordArray[j][1]}')">X</button> `;
+            }
+        }else{
+            const filteredArray = receivedRecordArray.filter(subArray =>
+                typeof subArray[1] === 'string' && subArray[1].toLowerCase().includes(inputField.toString().toLowerCase())
+            );
+            document.getElementById('container_Amount').innerHTML = filteredArray.length + " Records"            
+            for(let j =0; j < filteredArray.length; j++){
+                const para = document.createElement("button");
+                para.classList.add("container_TableRow");
+                para.addEventListener("click",()=>{handleRecord(receivedRecordArray[j][0] + " | " + receivedRecordArray[j][1])})
+                document.getElementById("container_TableContent").appendChild(para);
+                para.innerHTML = `<p>${filteredArray[j][1]}</p><p>On Demand</p><p>${filteredArray[j][2]}</p><button id="container_TableRow_Action" onclick="handleDelete('${filteredArray[j][0]}|${filteredArray[j][1]}',event)">X</button> `;
+            }
+
+        }
+    }
+    if(receivedFolderMessage != ''){
+        var messageelement = document.getElementById('folder_message')
+        messageelement.innerHTML = receivedFolderMessage
+        messageelement.style.display = 'block'
+        document.getElementById('create_folder').style.display = 'block'
+    }
+    function handleDelete(targetData,event){
+        var result = confirm("Do you want to DELETE Record?");
+        if (result == true) {
+            document.getElementById('targetData').value = targetData + "|" + receivedPointerFolder 
+        } else {
+            document.getElementById('targetData').value = "Cancelled"
+        }
+    }
+
+    function handlePath(){
+        window.location.href = "/scan";
+    }
+
+    function handleRecord(data){ 
+        document.getElementById('targetRecord').value = data 
+    }
+    
+    function handleNewFolder(){
+        document.getElementById('create_folder').style.display = 'block'
+    }
+
+    function handleClose(){
+        document.getElementById('create_folder').style.display = 'none'
+    }
+</script>
+<script>
+    const body = document.querySelector("body"),
+    nav = document.querySelector("nav"),
+    modeToggle = document.querySelector(".dark-light"),
+    searchToggle = document.querySelector(".searchToggle"),
+    sidebarOpen = document.querySelector(".sidebarOpen"),
+    siderbarClose = document.querySelector(".siderbarClose");
+
+    let getMode = localStorage.getItem("mode");
+        if(getMode && getMode === "dark-mode"){
+            body.classList.add("dark");
+        }
+
+// js code to toggle dark and light mode
+    modeToggle.addEventListener("click" , () =>{
+    modeToggle.classList.toggle("active");
+    body.classList.toggle("dark");
+
+    // js code to keep user selected mode even page refresh or file reopen
+    if(!body.classList.contains("dark")){
+        localStorage.setItem("mode" , "light-mode");
+    }else{
+        localStorage.setItem("mode" , "dark-mode");
+    }
+    });
+
+    searchToggle.addEventListener("click" , () =>{
+        searchToggle.classList.toggle("active");
+    });
+ 
+    sidebarOpen.addEventListener("click" , () =>{
+        nav.classList.add("active");
+    });
+
+    body.addEventListener("click" , e =>{
+        let clickedElm = e.target;
+        if(!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains("menu")){
+            nav.classList.remove("active");
+        }
+    });
+
+</script>
+</html>

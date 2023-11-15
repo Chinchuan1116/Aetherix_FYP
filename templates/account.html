@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/7fd4b2d67d.js" crossorigin="anonymous"></script>
+    <title>Aetherix -- Account</title>
+</head>
+<style>
+    /* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.4s ease;;
+}
+
+
+/* ===== Colours ===== */
+:root{
+    --body-color: #E4E9F7;
+    --nav-color: #4070F4;
+    --side-nav: #010718;
+    --text-color: #FFF;
+    --search-bar: #F2F2F2;
+    --search-text: #010718;
+    --side-bar:#002651;
+    --content-text-color:black;
+    --content-backgroud-color1: #66a5fe;
+    --content-backgroud-color2:  #88eafe;
+    --content-login-background-color:#FFF
+}
+
+body{
+    height: 100vh;
+    background-color: var(--body-color);
+}
+
+body.dark{
+    --body-color: #242D3B;
+    --nav-color: #242526;
+    --side-nav: #242526;
+    --text-color: #FFF;
+    --search-bar: #242526;
+    --side-bar:#2F313D;
+    --content-text-color:#FFF;
+    --content-backgroud-color1: #242D3B;
+    --content-backgroud-color2:  #2F313D;
+    --content-login-background-color:#94969c
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    background-color: var(--nav-color);
+    z-index: 100;
+}
+
+body.dark nav{
+    border: 1px solid #393838;
+
+}
+
+nav .nav-bar{
+    position: relative;
+    height: 100%;
+    max-width: 1000px;
+    width: 100%;
+    background-color: var(--nav-color);
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .nav-bar .sidebarOpen{
+    color: var(--text-color);
+    font-size: 25px;
+    padding: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+nav .nav-bar .logo a{
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.menu .logo-toggle{
+    display: none;
+}
+
+.nav-bar .nav-links{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar .nav-links li{
+    margin: 0 10px;
+    list-style: none;
+}
+
+.nav-links li a{
+    position: relative;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-links li a::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-links li:hover a::before{
+    opacity: 1;
+}
+
+.nav-bar .darkLight-searchBox{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+.darkLight-searchBox .dark-light,
+.darkLight-searchBox .searchToggle{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+.dark-light i,
+.searchToggle i{
+    position: absolute;
+    color: var(--text-color);
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: -10px;
+}
+
+.dark-light i.sun{
+    opacity: 0;
+    pointer-events: none;
+    margin-top: -10px;
+}
+
+.dark-light.active i.sun{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dark-light.active i.moon{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchToggle i.cancel{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchToggle.active i.cancel{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.searchToggle.active i.search{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchBox{
+    position: relative;
+}
+
+.searchBox .search-field{
+    position: absolute;
+    bottom: -85px;
+    right: 5px;
+    height: 50px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    background-color: var(--nav-color);
+    padding: 3px;
+    border-radius: 6px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.searchToggle.active ~ .search-field{
+    bottom: -74px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.search-field::before{
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: -4px;
+    height: 12px;
+    width: 12px;
+    background-color: var(--nav-color);
+    transform: rotate(-45deg);
+    z-index: -1;
+}
+
+.search-field input{
+    height: 100%;
+    width: 100%;
+    padding: 0 45px 0 15px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--search-text);
+    background-color: var(--search-bar);
+}
+
+body.dark .search-field input{
+    color: var(--text-color);
+}
+
+.search-field i{
+    position: absolute;
+    color: var(--nav-color);
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+body.dark .search-field i{
+    color: var(--text-color);
+}
+.logo_image{
+    width: 75px;
+    height: 60px;
+}
+#logoclass{
+    display: flex;
+}
+@media (max-width: 790px) {
+    nav .nav-bar .sidebarOpen{
+        display: block;
+    }
+
+    .menu{
+        position: fixed;
+        height: 100%;
+        width: 320px;
+        left: -100%;
+        top: 0;
+        padding: 20px;
+        background-color: var(--side-nav);
+        z-index: 100;
+        transition: all 0.4s ease;
+    }
+
+    nav.active .menu{
+        left: -0%;
+    }
+
+    nav.active .nav-bar .navLogo a{
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .menu .logo-toggle{
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-toggle .siderbarClose{
+        color: var(--text-color);
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav-links{
+        flex-direction: column;
+        padding-top: 30px;
+    }
+
+    .nav-links li a{
+        display: block;
+        margin-top: 20px;
+    }
+}
+.main {
+		height: 100vh;
+		width: 100%;
+		display: flex;
+		/* background-image: linear-gradient(to bottom right, var(--content-backgroud-color1), var(--content-backgroud-color2)); */
+        background-color: var(--body-color);
+		background-size: cover;
+        justify-content: center;
+		background-repeat: no-repeat;
+        transition: all 0.3s ease;
+	}
+	.login {
+		position: relative;
+		background: var( --content-login-background-color);
+        width: 540px;
+        height: 600px;
+        margin-top: 100px;
+        color: var(--content-text-color);
+		padding: 35px 40px;
+		border-radius: 4px;
+		z-index: 1;
+		overflow: hidden;
+		box-shadow: 0px 12px 31px #ffffff52 , 0px 36px 31px #000000a1;
+		animation: login 0.88s ease;
+	}
+	@keyframes login {
+		0% {
+			transform: translateY(-10%) scale(.8);
+			opacity: 0;
+		}
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+	.login:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		z-index: -1;
+
+		opacity: 0.8;
+	}
+	.heading {
+		font-size: 24px;
+        margin-top: 30px;
+		font-weight: 400;
+		text-align: center;
+		margin-bottom: 18px;
+	}
+	.input {
+		display: block;
+		margin-bottom: 25px;
+		margin-top: 11px;
+	}
+	.input label {
+		display: block;
+		margin-bottom: 3px;
+		font-size: 13px;
+		cursor: pointer;
+	}
+	.input input,textarea{
+		width: 100%;
+		padding: 10px;
+		outline: none;
+		border: none;
+		font-size: 15px;
+		border-radius: 4px;
+		background: #0000002b;
+		transition: all 0.2s ease;
+	}
+	.input input:hover ,textarea:hover{
+		background: #3d434c;
+        color: white;
+	}
+	.input input:focus, textarea:focus{
+		box-shadow: 0px 2px 2px #0000002b , 0px 5px 10px #00000036;
+		background: #434343;
+        color: white;
+	}
+    textarea{
+        resize: none; 
+    }
+	.submit-btn, .logout-btn {
+        text-align: center;
+		margin-top: 10px;
+		margin-bottom: 15px;
+		padding: 8px 15px;
+		font-size: 14px;
+		background: #bfcf2b;
+        border: none;
+		color: white;
+		border-radius: 4px;
+		width: 100%;
+		transition: all 0.2s cubic-bezier(.79,.14,.15,.86);
+		cursor: pointer;
+	}
+	.submit-btn:hover, .logout-btn:hover {
+		background: #abba1e;
+		transition: all 0.1s ease;
+	}
+	.submit-btn:focus, .logout-btn:focus {
+		box-shadow: 0px 0px 0px 2px #a7a7a7b5;
+		background: #00000061;
+	}
+	.meta-text {
+		font-size: 13px;
+		margin-bottom: 15px;
+		color: white;
+	}
+	.social-icons {
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.social-icon {
+		min-height: 40px;
+		background: var(--c);
+		margin-right: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 40px;
+		max-width: 40px;
+		max-height: 40px;
+		border-radius: 28px;
+		box-shadow: 0px 4px 8px #0c0b0b00;
+		transition: all 0.2s ease;
+		border: none;
+		outline: none;
+	}
+	.social-icon:hover {
+		box-shadow: 0px 4px 14px #0000007a;
+	}
+	.social-icon:focus {
+		box-shadow: 0px 0px 0px 2px currentColor;
+		transform: scale(.9);
+	}
+	.social-icon * {
+		pointer-events: none;
+		fill: #fff;
+	}
+	.social-icon.fb {
+		--c: #4267B2;
+	}
+	.social-icon.pr {
+		--c: #E60023;
+	}
+	.social-icon.in {
+		--c: #5B51D8;
+	}
+	#logoclass{
+		display: flex;	
+		font-size: 20px;
+		justify-content: center;
+	}
+	.logo_image {
+    width: 75px;
+    height: 60px;
+	}
+	.option{
+		display: flex;
+		justify-content: space-between;
+		font-size: 13px;
+		color: white;
+		margin-bottom: 10px;
+	}
+	.message{
+		color: red;
+		display: none;
+        font-weight: bold;
+		
+	}
+	.login-btn{
+		margin-top: 10px;
+	}
+	a{
+		text-decoration: none;
+		color: white;
+	}
+    .greeting{
+        margin-right: 40px;
+        z-index: 1;
+        font-size: 15px;
+        width: 600px;
+        font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        margin-top: 220px;
+        margin-bottom: auto;
+        color: var(--content-text-color);
+        height: 400px;
+    }
+
+    .greeting_title{
+        font-size: 20px;
+   
+    }
+    .greeting_UserName{
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+
+    #backgroundlogo1{
+        position: absolute;
+        width: 300px;
+        height: 280px;
+        z-index: 0;
+        margin-left: -100px;
+        margin-top: 100px;
+        left: 0;
+    }
+    #greeting_message{
+        margin-top: 100px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+.tips{
+    text-decoration: none !important;
+}
+</style>
+
+<body>
+    <nav>
+        <div class="nav-bar">
+            <i class='bx bx-menu sidebarOpen' ></i>
+          
+            <a href="/home"><span class="logo navLogo" id="logoclass"><img src={{logo_image}} class="logo_image" alt="Aetherix Logo">Aetherix</br>Essestials</span></a>
+
+            <div class="menu">
+                <div class="logo-toggle">
+                    <span class="logo"><a href="/home">Aetherix Essestials</a></span>
+                    <i class='bx bx-x siderbarClose'></i>
+                </div>
+                <ul class="nav-links">
+                    <abbr class="tips" title="To create new scan"><a href="/scan">Scan</a></li></abbr>
+                    <abbr class="tips" title="To Know about Aetherix"><li><a href="/about">About</a></li></abbr>
+                    <abbr class="tips" title="To contact Aetherix"><li><a href="/contact">Contact</a></li></abbr>
+                    <abbr class="tips" title="To report bug/issues to Aetherix"><li><a href="mailto:aetherix666@gmail.com">Report Issues</a></li></abbr>
+                    <abbr class="tips" title="To manage account"><li><a href="/account">Account</a></li></abbr>
+                </ul>
+            </div>
+
+            <div class="darkLight-searchBox">
+                <div class="dark-light">
+                    <abbr class="tips" title="To change system theme"><i class='bx bx-moon moon'></i></abbr>
+                    <abbr class="tips" title="To change system theme"><i class='bx bx-sun sun'></i></abbr>
+                </div>
+
+                <div class="searchBox">
+                   <div class="searchToggle">
+                    <i class='bx bx-x cancel'></i>
+                   </div>
+
+                    <div class="search-field">
+                        <input type="text" placeholder="Search...">
+                        <i class='bx bx-search'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="main">
+        <img src={{logo_image}} class="logo_image" alt="Aetherix Logo" id="backgroundlogo1">
+        <div class="greeting">        
+            <div class="greeting_head">
+                <div class="greeting_title">Greeting,</div>
+                <div class="greeting_UserName">{{username}}</div>
+            </div>   
+            <div id="greeting_message"></div>   
+        </div>
+		<div class="login">
+			<h1 class="heading">CHANGE PASSWORD?</h1>
+			<form id="password-form" action="{{url_for('accountpage') }}" method="post" >
+                <div class="input">
+					<label for="defaultpassword">Default Password</label>	
+					<input type="password" id="defaultpassword" name="defaultpassword" autocomplete="false" required />
+				</div>
+				<div class="input">
+					<label for="newpassword">New Password</label>	
+					<input type="password" id="newpassword" name="newpassword" autocomplete="false" required />
+				</div>
+
+				<div class="input">
+					<label for="confirmpassword">Confirm Password</label>	
+					<input type="password" id="confirmpassword" name="confirmpassword" autocomplete="false" required />
+				</div>
+				<div class="message" id="system_message"></div>
+                <div class="message" id="system_message2"></div>
+				
+				<div class="divider"></div>
+
+				<button class="submit-btn">Submit</button>
+                <div class="logout-btn" onclick="handlePath()">Logout Account</div>
+			</form>
+		</div>
+	</div>
+    
+</body>
+
+<script>
+    
+    var receivedMessage = '{{ systemmessage |safe }}';
+    
+    if(receivedMessage == "Invalid password"){
+        document.getElementById('system_message2').innerHTML = receivedMessage
+        document.getElementById('system_message2').style.display = 'block'
+        document.getElementById('system_message2').style.color = "red"
+    }else if(receivedMessage == "Updated password"){
+        document.getElementById('system_message2').innerHTML = receivedMessage
+        document.getElementById('system_message2').style.display = 'block'
+        document.getElementById('system_message2').style.color = "green"
+    }
+    document.getElementById('password-form').addEventListener('submit', function(event) {
+		var newpasswordField = document.getElementById('newpassword');
+        var comfirmnewpasswordField = document.getElementById('confirmpassword');
+        var message = document.getElementById('system_message')
+        var lowerCaseLetters = /[a-z]/g;
+		var upperCaseLetters = /[A-Z]/g;
+		var numbers = /[0-9]/g;
+		var email = /^[^@]+@[^@]+\.[^@]+$/
+
+		if(newpasswordField.value.length < 8){
+			event.preventDefault(); 
+			message.innerHTML = "Minimum 8 character for password"
+			message.style.display = 'block';
+		}else if(!newpasswordField.value.match(lowerCaseLetters)){
+			event.preventDefault(); 
+			message.innerHTML = "Password must contain atleast one lowercase letter"
+			message.style.display = 'block';
+		}else if(!newpasswordField.value.match(upperCaseLetters)){
+			event.preventDefault(); 
+			message.innerHTML = "Password must contain atleast one uppercase letter"
+			message.style.display = 'block';
+		}else if(!newpasswordField.value.match(numbers)){
+			event.preventDefault(); 
+			message.innerHTML = "Password must contain atleast one number"
+			message.style.display = 'block';
+		}else if(newpasswordField.value != comfirmnewpasswordField.value){
+			event.preventDefault(); 
+			message.innerHTML = "Please check your confirm password"
+			message.style.display = 'block';
+		}else{
+			message.innerHTML = ""
+		}
+	});
+    function handlePath(){
+        window.location.href = "/logout";
+    }
+    var greetings = [
+    "How was your day?",
+    "Welcome back",
+    "Good to see you",
+    "Hello there! How have you been?",
+    "Greetings! It's a pleasure to have you here.",
+    "Hey! Hope you're having a fantastic day.",
+    "Warm salutations! How's everything going?",
+    "Hi, friend! What's new in your world?",
+    "Nice to meet you! How's life treating you?",
+    "Hey, stranger! Long time no see. How have you been keeping?",
+    "Hola! Cómo estás?",
+    "Bonjour! Comment ça va?",
+    "Glad you're here! How's your day going?",
+    "Hey, lovely! What's been happening?",
+    "Welcome back, my friend! How was your break?",
+    "Top of the morning to you! How's the day looking?",
+    "Hey there, sunshine! Ready to conquer the day?",
+    "Ahoy! What adventures await you today?",
+    "Good day to you! Anything exciting on your agenda?",
+    "Hey, champ! How's the world treating you?",
+    "Namaste! How's your journey of life unfolding?",
+    "Wishing you a day filled with joy and laughter!",
+    "Hey, rockstar! Ready to shine today?",
+    "Hope you're having a spectacular day! Let's catch up.",
+    "Hey, partner! How's life on your side of the fence?",
+    "Sending positive vibes your way! How's everything?"
+    ];
+    var randomNumber = Math.random();
+    var scaledNumber = Math.floor(randomNumber * 26);
+    
+    document.getElementById('greeting_message').innerHTML = greetings[scaledNumber]
+      
+
+</script>
+<script>
+    const body = document.querySelector("body"),
+    nav = document.querySelector("nav"),
+    modeToggle = document.querySelector(".dark-light"),
+    searchToggle = document.querySelector(".searchToggle"),
+    sidebarOpen = document.querySelector(".sidebarOpen"),
+    siderbarClose = document.querySelector(".siderbarClose");
+
+    let getMode = localStorage.getItem("mode");
+        if(getMode && getMode === "dark-mode"){
+            body.classList.add("dark");
+        }
+
+// js code to toggle dark and light mode
+    modeToggle.addEventListener("click" , () =>{
+    modeToggle.classList.toggle("active");
+    body.classList.toggle("dark");
+
+    // js code to keep user selected mode even page refresh or file reopen
+    if(!body.classList.contains("dark")){
+        localStorage.setItem("mode" , "light-mode");
+    }else{
+        localStorage.setItem("mode" , "dark-mode");
+    }
+    });
+
+    searchToggle.addEventListener("click" , () =>{
+        searchToggle.classList.toggle("active");
+    });
+ 
+    sidebarOpen.addEventListener("click" , () =>{
+        nav.classList.add("active");
+    });
+
+    body.addEventListener("click" , e =>{
+        let clickedElm = e.target;
+        if(!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains("menu")){
+            nav.classList.remove("active");
+        }
+    });
+
+</script>
+</html>

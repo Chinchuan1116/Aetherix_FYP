@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/7fd4b2d67d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <title>Aetherix -- Configure</title>
+</head>
+<style>
+    /* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.4s ease;;
+}
+
+
+/* ===== Colours ===== */
+:root{
+    --body-color: #E4E9F7;
+    --nav-color: #4070F4;
+    --side-nav: #010718;
+    --text-color: #FFF;
+    --search-bar: #F2F2F2;
+    --search-text: #010718;
+    --side-bar:#002651;
+    --content-text-color:black;
+    --content-tab-color:#4070F4;
+    --content-tab-hover-color:rgba(74,116,232,0.3);
+    --content-tab-text-color:#4070F4;
+    --content-button-color:#495668;
+}
+
+body{
+    height: 100vh;
+    background-color: var(--body-color);
+}
+::selection{
+  background: rgba(23,162,184,0.3);
+}
+body.dark{
+    --body-color: #242D3B;
+    --nav-color: #242526;
+    --side-nav: #242526;
+    --text-color: #FFF;
+    --search-bar: #242526;
+    --side-bar:#2F313D;
+    --content-text-color:#FFF;
+    --content-tab-color:#72a5ed;
+    --content-tab-hover-color:rgba(150, 162, 179, 0.5);
+    --content-tab-text-color:#72a5ed;
+    --content-button-color:#495668;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    background-color: var(--nav-color);
+    z-index: 100;
+}
+
+body.dark nav{
+    border: 1px solid #393838;
+
+}
+
+nav .nav-bar{
+    position: relative;
+    height: 100%;
+    max-width: 1000px;
+    width: 100%;
+    background-color: var(--nav-color);
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .nav-bar .sidebarOpen{
+    color: var(--text-color);
+    font-size: 25px;
+    padding: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+nav .nav-bar .logo a{
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.menu .logo-toggle{
+    display: none;
+}
+
+.nav-bar .nav-links{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.nav-bar .nav-links li{
+    margin: 0 10px;
+    list-style: none;
+}
+
+.nav-links li a{
+    position: relative;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-links li a::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-links li:hover a::before{
+    opacity: 1;
+}
+
+.nav-bar .darkLight-searchBox{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+.darkLight-searchBox .dark-light,
+.darkLight-searchBox .searchToggle{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+.dark-light i,
+.searchToggle i{
+    position: absolute;
+    color: var(--text-color);
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: -10px;
+}
+
+.dark-light i.sun{
+    opacity: 0;
+    margin-top: -10px;
+    pointer-events: none;
+}
+
+.dark-light.active i.sun{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dark-light.active i.moon{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchToggle i.cancel{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchToggle.active i.cancel{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.searchToggle.active i.search{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.searchBox{
+    position: relative;
+}
+
+.searchBox .search-field{
+    position: absolute;
+    bottom: -85px;
+    right: 5px;
+    height: 50px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    background-color: var(--nav-color);
+    padding: 3px;
+    border-radius: 6px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.searchToggle.active ~ .search-field{
+    bottom: -74px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.search-field::before{
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: -4px;
+    height: 12px;
+    width: 12px;
+    background-color: var(--nav-color);
+    transform: rotate(-45deg);
+    z-index: -1;
+}
+
+.search-field input{
+    height: 100%;
+    width: 100%;
+    padding: 0 45px 0 15px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--search-text);
+    background-color: var(--search-bar);
+}
+
+body.dark .search-field input{
+    color: var(--text-color);
+}
+
+.search-field i{
+    position: absolute;
+    color: var(--nav-color);
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+body.dark .search-field i{
+    color: var(--text-color);
+}
+.logo_image{
+    width: 75px;
+    height: 60px;
+}
+#logoclass{
+    display: flex;
+}
+@media (max-width: 790px) {
+    nav .nav-bar .sidebarOpen{
+        display: block;
+    }
+
+    .menu{
+        position: fixed;
+        height: 100%;
+        width: 320px;
+        left: -100%;
+        top: 0;
+        padding: 20px;
+        background-color: var(--side-nav);
+        z-index: 100;
+        transition: all 0.4s ease;
+    }
+
+    nav.active .menu{
+        left: -0%;
+    }
+
+    nav.active .nav-bar .navLogo a{
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .menu .logo-toggle{
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-toggle .siderbarClose{
+        color: var(--text-color);
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav-links{
+        flex-direction: column;
+        padding-top: 30px;
+    }
+
+    .nav-links li a{
+        display: block;
+        margin-top: 20px;
+    }
+}
+.content{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    padding-top: 70px;
+}
+.side-bar{
+    background-color: var(--side-bar);
+    color: var(--text-color);
+    position: fixed;
+    width: 20vw;
+    height: 100%;
+    min-width: 300px;
+}
+.side-bar_Title{
+    margin-top: 50px;
+    font-size: 30px;
+    margin-bottom: 42px;
+    padding-left: 20px;
+    cursor: default;
+}
+.side-bar_Folder button{
+    background-color: var(--side-bar);
+    width: 100%;
+    color: var(--text-color);
+    border: none;
+    font-size: 20px;
+    display: flex;
+    line-height: 3.5em;
+    cursor: pointer;
+    height: 70px;
+}
+.side-bar_Folder button:hover{
+    background-color: #908888;
+}
+.side-bar_Folder button i {
+    font-size: 30px;
+    margin-top: 17px;
+    margin-left: 20px;
+    margin-right: 0.5em;
+    color: white;
+}
+.side-bar_Folder button .ribbon {
+  width: 10px;
+  background-color: aqua;
+  height: 100%;
+}
+.container{
+    width: 80%;
+    height: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 40px;
+    margin: 0;
+    margin-left: 20vw;
+}
+.container_Header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.container_Title{
+    color: var(--content-text-color);
+    font-size: 35px;
+    cursor: default;
+    margin-bottom: 0;
+}
+.container_Path{
+    color: var(--content-text-color);
+    font-size: 15px;
+    margin-top: -10px;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+.container hr{
+    width: calc(100% + 170px)!important; 
+    box-sizing: border-box;
+    margin-left: -50px!important;
+    margin-bottom: 30px!important;
+    margin-top: 0px;
+    border: solid 1px var(--content-text-color);
+}
+.container .nav{
+    position: relative;
+    flex-wrap: initial;
+    width: 40%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+.container .nav label{
+    display: block;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    color: var(--content-tab-text-color);
+    font-size: 17px;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+.container .nav label:hover{
+    background: var(--content-tab-hover-color);
+}
+#home:checked ~ .nav label.home,
+#blog:checked ~ .nav label.blog{
+    color: #fff;
+}
+.nav label i{
+  padding-right: 7px;
+}
+.nav .slider{
+  position: absolute;
+  height: 100%;
+  width: 50%;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  border-radius: 5px;
+  background: var( --content-tab-color);
+  transition: all 0.3s ease;
+}
+input[type="radio"]{
+  display: none;
+}
+#blog:checked ~ .nav .slider{
+  left: 50%;
+}
+
+section .content{
+  display: none;
+}
+#home:checked ~ section .content-1,
+#blog:checked ~ section .content-2{
+  display: block;
+}
+section .content .title{
+  font-size: 21px;
+  font-weight: 500;
+  margin: 30px 0 10px 0;
+}
+section .content p{
+text-align: justify;
+}
+.card {
+  background-color:var( --content-tab-color);
+  color: white;
+  padding: 1rem;
+  height: 190px;
+  border-radius: 10px;
+  border: 1px solid grey;
+  cursor: pointer;
+  text-align: center;
+
+}
+.card .cardIcon{
+    font-size: 35px;
+}
+.card .cardTitle{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+.card .cardDesc{
+    font-size: 13px;
+    height: 60px;
+    text-align: center;
+}
+.cards {
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+}
+
+/* Screen larger than 600px? 2 column */
+@media (min-width: 600px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Screen larger than 900px? 3 columns */
+@media (min-width: 900px) {
+  .cards { grid-template-columns: repeat(4, 1fr); }
+}
+.contentForm{
+    background-color: rgba(128, 128, 128, 0.1);
+    border: solid 1px #808080;
+    padding: 20px;
+    border-radius: 10px;
+}
+#contentForm_Button1{
+    margin: 0px;
+    padding: 10px;
+    width: 110px;
+    text-align: center;
+    margin-right: 10px;
+    background-color: var(--content-tab-color);
+}
+#contentForm_Button2{
+    margin: 0px;
+    padding: 10px;
+    width: 110px;
+    text-align: center;
+    margin-right: 10px;
+    background-color: var(--content-button-color);
+    border: solid var(--content-button-color);
+}
+.form-group{
+    display: flex;
+}
+#URLField{
+    display: none;
+}
+.form-group label{
+    color: var(--content-text-color);
+    margin-right: 30px;
+    width: 100px;
+}
+#name, #target, #url{
+    width: 30%;
+    resize: none;
+}
+#description{
+    width: 50%;
+    resize: none;
+}
+#content-1,#content-2{
+    margin-top: -40px;
+    height: auto;
+    padding-bottom: 50px;
+}
+.loaderClass{
+    width: 320px;
+    margin-top: -100px;
+    height: 350px;
+    font-weight: bold;
+    font-size: 17px;
+    padding: 30px;
+    position: absolute;
+    background-color: rgba(128,128,128,0.9);
+    border-radius: 20px;
+    margin-left: 25%;
+    cursor: default;
+    display: none;
+}
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: 200px;
+    animation: spin 2s linear infinite;
+}
+.loaderMessage{
+    text-align: center !important;
+    margin: 0px;    
+    margin-top: 10px;
+}
+.loaderWarning{
+    text-align: center !important;
+    margin: 0px;  
+    color: red;
+    margin-top: 5px;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#content2_Description_title{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: var(--content-text-color);
+}
+#content2_Description{
+   text-align: justify;
+   color: var(--content-text-color);
+}
+#error_message{
+    color: red;
+    display: none;
+}
+.tips{
+    text-decoration: none !important;
+}
+#field_question{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 5px;
+    color: var(--content-text-color);
+}
+.guidance{
+    margin-left: 470px;
+    margin-top: -100px;
+    border: 5px solid var(--content-text-color);
+    width: 325px;
+    position: absolute;
+    display: none;
+}
+</style>
+
+<body>
+    <nav>
+        <div class="nav-bar">
+            <i class='bx bx-menu sidebarOpen' ></i>
+            <a href="/home"><span class="logo navLogo" id="logoclass"><img src={{logo_image}} class="logo_image" alt="Aetherix Logo">Aetherix</br>Essestials</span></a>
+            <div class="menu">
+                <div class="logo-toggle">
+                    <span class="logo"><a href="/home">Aetherix Essestials</a></span>
+                    <i class='bx bx-x siderbarClose'></i>
+                </div>
+                <ul class="nav-links">
+                    <abbr class="tips" title="To create new scan"><a href="/scan">Scan</a></li></abbr>
+                    <abbr class="tips" title="To Know about Aetherix"><li><a href="/about">About</a></li></abbr>
+                    <abbr class="tips" title="To contact Aetherix"><li><a href="/contact">Contact</a></li></abbr>
+                    <abbr class="tips" title="To report bug/issues to Aetherix"><li><a href="mailto:aetherix666@gmail.com">Report Issues</a></li></abbr>
+                    <abbr class="tips" title="To manage account"><li><a href="/account">Account</a></li></abbr>
+                </ul>
+            </div>
+
+            <div class="darkLight-searchBox">
+                <div class="dark-light">
+                    <abbr class="tips" title="To change system theme"><i class='bx bx-moon moon'></i></abbr>
+                    <abbr class="tips" title="To change system theme"><i class='bx bx-sun sun'></i></abbr>
+                </div>
+
+                <div class="searchBox">
+                   <div class="searchToggle">
+                    <i class='bx bx-x cancel'></i>
+                   </div>
+
+                    <div class="search-field">
+                        <input type="text" placeholder="Search...">
+                        <i class='bx bx-search'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="side-bar">
+            <div class="side-bar_Title">
+                <p>Folders</p>
+            </div>
+            <form  action="{{ url_for('homepage') }}" method="post">
+                <input style="display: none;" class="form-control" id="foldername" name="foldername" type="text" />
+                <div class="side-bar_Folder" id="myDIV" >
+                </div>   
+            </form>
+        </div>
+        <div class="container">
+            <div class="container_Header">
+                <div>
+                    <p class="container_Title">{{pointerFolder}}</p>
+                    <p class="container_Path" onclick="handlePath()">{{previousPath}}</p>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <input type="radio" name="slider" checked id="home">
+                <input type="radio" name="slider" id="blog">
+                <div class="nav">
+                  <label for="home" class="home"><i class="fa-solid fa-gear"></i>Setting</label>
+                  <label for="blog" class="blog"><i class="fa-solid fa-circle-info"></i>What is this?</label>
+                  <div class="slider"></div>
+                </div>
+                <section>
+                    <div class="content content-1" id="content-1">
+                        <div class="contentForm">
+                            <div class="loaderClass" id="loaderClass">
+                                <div class="loader"></div>
+                                <p class="loaderMessage">Please wait for processing...</p>
+                                <p class="loaderWarning"><i class="fa-solid fa-triangle-exclamation"></i> Please do not refresh the page</p>
+                            </div>
+                            <form action="{{ url_for('homepage') }}" method="post">  
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="target">Target:</label>
+                                    <textarea type="text" class="form-control" id="target" name="target" placeholder="Enter target" rows="3" required></textarea>
+                                    <abbr class="tips" title="Click to auto filed your IP address" id="field_question" ><i class="fa-solid fa-circle-question" onclick="handleIP()"></i></abbr>
+                                </div>   
+                                <div class="form-group" id="URLField">
+                                    <label for="url">URL:</label>
+                                    <textarea type="text" class="form-control" id="url" name="url" placeholder="Enter URL" rows="3"></textarea>
+                                    <abbr class="tips" title="Click to show/hide help" id="field_question" ><i class="fa-solid fa-circle-question" onclick="handleGIF()"></i></abbr>  
+                                    <img src={{GIF}} class="guidance" id="guidanceGIF" alt="guidance gif">
+                                </div>                                                        
+                                <div class="form-group">
+                                    <label for="description">Description:</label>
+                                    <textarea type="text" class="form-control" id="description" name="description" placeholder="Enter description" rows="4"></textarea>
+                                </div>    
+                                <p id="error_message">There are some empty field</p>
+                                <button type="submit" class="btn btn-primary" id="contentForm_Button1" onclick="handleLaunch()">Launch</button>
+                                <p class="btn btn-primary"  onclick="handlePath()" id="contentForm_Button2">Cancel</p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="content content-2" id="content-2">
+                        <p id="content2_Description_title">Description:</p>
+                        <p id="content2_Description">{{featureArray}}</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    
+    var receivedFolderArray = JSON.parse('{{ folderArray|safe }}');
+    var receivedPointerFolder = '{{ pointerFolder|safe }}';
+    var receivedFunctionName = '{{ functionName}}';
+    if(receivedFunctionName == "Check SQL-injection" || receivedFunctionName == "Check XXS" || receivedFunctionName == "Nikto" || receivedFunctionName == "Check backup files"){
+       document.getElementById('URLField').style.display = 'flex';
+    }
+    for(let i = 0; i < receivedFolderArray.length; i++){
+        const para = document.createElement("button");
+        para.addEventListener("click",function(){
+            document.getElementById('foldername').value = receivedFolderArray[i]
+        })
+        document.getElementById("myDIV").appendChild(para);
+        if(receivedFolderArray[i] === receivedPointerFolder){
+            para.innerHTML = `<div class="ribbon"></div><abbr class="tips" title="Open ${receivedFolderArray[i]} Folder"><i class="fa-regular fa-folder-open"></i> ${receivedFolderArray[i]}  </abbr> `;
+            para.style.backgroundColor = '#908888'
+        }else{
+            para.innerHTML = `<abbr class="tips" title="Open ${receivedFolderArray[i]} Folder"><i class="fa-solid fa-folder"></i> ${receivedFolderArray[i]}  </abbr>`;
+        }               
+    }
+    function handlePath(){
+        window.location.href = "/scan";
+    }
+    function handleLaunch(){
+        var NameField = document.getElementById('name')
+        var TargetField = document.getElementById('target')
+        var URL_class = document.getElementById('URLField')
+        var URLFiled = document.getElementById('url')
+        if(URL_class.style.display == 'flex'){
+            if(NameField.value.trim() !== '' && URLFiled.value.trim() !== '' && TargetField.value.trim() !== ''){
+                document.getElementById('loaderClass').style.display = 'block'
+            }else{
+                event.preventDefault(); 
+                document.getElementById('error_message').style.display = 'block'
+            }
+        }else{
+            if(NameField.value.trim() !== '' && TargetField.value.trim() !== ''){
+                document.getElementById('loaderClass').style.display = 'block'
+            }
+        }
+        
+    }
+    function handleIP(){
+        var TargetField = document.getElementById('target')
+        var URLFiled = document.getElementById('url')
+        fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            const ipAddress = data.ip;
+            TargetField.value = ipAddress
+        });
+    }
+    function handleGIF(){
+        var GIFelement = document.getElementById("guidanceGIF")
+        if(GIFelement.style.display == 'block'){
+            GIFelement.style.display = 'none'
+        }else{
+            GIFelement.style.display = 'block'
+        }
+    }
+ 
+</script>
+<script>
+    const body = document.querySelector("body"),
+    nav = document.querySelector("nav"),
+    modeToggle = document.querySelector(".dark-light"),
+    searchToggle = document.querySelector(".searchToggle"),
+    sidebarOpen = document.querySelector(".sidebarOpen"),
+    siderbarClose = document.querySelector(".siderbarClose");
+
+    let getMode = localStorage.getItem("mode");
+        if(getMode && getMode === "dark-mode"){
+            body.classList.add("dark");
+        }
+
+// js code to toggle dark and light mode
+    modeToggle.addEventListener("click" , () =>{
+    modeToggle.classList.toggle("active");
+    body.classList.toggle("dark");
+
+    // js code to keep user selected mode even page refresh or file reopen
+    if(!body.classList.contains("dark")){
+        localStorage.setItem("mode" , "light-mode");
+    }else{
+        localStorage.setItem("mode" , "dark-mode");
+    }
+    });
+
+    searchToggle.addEventListener("click" , () =>{
+        searchToggle.classList.toggle("active");
+    });
+ 
+    sidebarOpen.addEventListener("click" , () =>{
+        nav.classList.add("active");
+    });
+
+    body.addEventListener("click" , e =>{
+        let clickedElm = e.target;
+        if(!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains("menu")){
+            nav.classList.remove("active");
+        }
+    });
+
+</script>
+</html>

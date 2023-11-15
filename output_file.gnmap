@@ -1,0 +1,4 @@
+# Nmap 7.80 scan initiated Mon Jul 17 13:30:57 2023 as: nmap -sS -Pn -n -T4 -oA output_file -p 80,443,8080 192.168.9.128
+Host: 192.168.9.128 ()	Status: Up
+Host: 192.168.9.128 ()	Ports: 80/closed/tcp//http///, 443/closed/tcp//https///, 8080/closed/tcp//http-proxy///
+# Nmap done at Mon Jul 17 13:31:15 2023 -- 1 IP address (1 host up) scanned in 21.38 seconds

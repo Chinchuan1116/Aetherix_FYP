@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Aetherix -- Forget Password</title>
+	<style type="text/css">
+	@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+	* , :before , :after {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		font-family: inherit;
+	}
+
+
+	body {
+		font-family: "Poppins",sans-serif;
+	}
+	
+	.main {
+		height: 100vh;
+		width: 100%;
+		display: flex;
+		align-content: center;
+		align-items: center;
+		justify-content: center;
+		background: url(https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80);
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+	.login {
+		position: relative;
+		background: #686d6f7a;
+		padding: 35px 40px;
+		border-radius: 4px;
+		z-index: 1;
+		overflow: hidden;
+		box-shadow: 0px 12px 31px #ffffff52 , 0px 36px 31px #000000a1;
+		animation: login 0.88s ease;
+	}
+	@keyframes login {
+		0% {
+			transform: translateY(-10%) scale(.8);
+			opacity: 0;
+		}
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+	}
+	.login:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		background: url(https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80);
+		width: 100%;
+		z-index: -1;
+		background-size: 182vh;
+		background-position: 28% , 83%;
+		filter: blur(24px);
+		background-repeat: no-repeat;
+		opacity: 0.8;
+	}
+	.heading {
+		font-size: 24px;
+		font-weight: 400;
+		text-align: center;
+		margin-bottom: 18px;
+		color: white;
+	}
+	.input {
+		display: block;
+		margin-bottom: 13px;
+		margin-top: 11px;
+	}
+	.input label {
+		display: block;
+		margin-bottom: 3px;
+		font-size: 13px;
+		color: white;
+		cursor: pointer;
+	}
+	.input input {
+		width: 100%;
+		padding: 10px;
+		outline: none;
+		border: none;
+		font-size: 15px;
+		border-radius: 4px;
+		background: #0000002b;
+		color: white;
+		transition: all 0.2s ease;
+	}
+	.input input:hover {
+		background: #3d434c;
+	}
+	.input input:focus {
+		box-shadow: 0px 2px 2px #0000002b , 0px 5px 10px #00000036;
+		background: #434343;
+	}
+	.login-btn {
+		margin-top: 10px;
+		margin-bottom: 15px;
+		padding: 8px 15px;
+		font-size: 14px;
+		background: #00000038;
+		border: 2px solid #38363654;
+		color: #e1e1e1;
+		border-radius: 4px;
+		width: 100%;
+		transition: all 0.2s cubic-bezier(.79,.14,.15,.86);
+		cursor: pointer;
+	}
+	.login-btn:hover {
+		background: #0663b4;
+		transition: all 0.1s ease;
+	}
+	.login-btn:focus {
+		box-shadow: 0px 0px 0px 2px #a7a7a7b5;
+		background: #00000061;
+	}
+	.meta-text {
+		font-size: 13px;
+		margin-bottom: 15px;
+		color: white;
+	}
+	.social-icons {
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.social-icon {
+		min-height: 40px;
+		background: var(--c);
+		margin-right: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 40px;
+		max-width: 40px;
+		max-height: 40px;
+		border-radius: 28px;
+		box-shadow: 0px 4px 8px #0c0b0b00;
+		transition: all 0.2s ease;
+		border: none;
+		outline: none;
+	}
+	.social-icon:hover {
+		box-shadow: 0px 4px 14px #0000007a;
+	}
+	.social-icon:focus {
+		box-shadow: 0px 0px 0px 2px currentColor;
+		transform: scale(.9);
+	}
+	.social-icon * {
+		pointer-events: none;
+		fill: #fff;
+	}
+	.social-icon.fb {
+		--c: #4267B2;
+	}
+	.social-icon.pr {
+		--c: #E60023;
+	}
+	.social-icon.in {
+		--c: #5B51D8;
+	}
+	#logoclass{
+		display: flex;	
+		font-size: 20px;
+    	color: white;
+		margin-bottom: 20px;
+		justify-content: center;
+	}
+	.logo_image {
+    width: 75px;
+    height: 60px;
+	}
+	.option{
+		display: flex;
+		justify-content: space-between;
+		font-size: 13px;
+		color: white;
+		margin-bottom: 10px;
+	}
+	.message{
+		color: red;
+		display: none;
+		
+	}
+	.login-btn{
+		margin-top: 10px;
+	}
+	a{
+		text-decoration: none;
+		color: white;
+	}
+
+</style>
+</head>
+<body>
+
+	<div class="main">
+		<div class="login">
+			<span class="logo navLogo" id="logoclass"><img src={{logo_image}} class="logo_image" alt="Aetherix Logo">Aetherix</br>Essestials</span>
+			<h1 class="heading">Reset Password</h1>
+			<form id="login-form" action="{{url_for('validtokenpage') }}" method="post" >
+
+				<div class="input" id="token_field">
+					<label for="token">Token</label>	
+					<input type="text" id="token" name="token" autocomplete="false" required/>
+				</div>
+				<div class="message" id="message">{{message}}</div>	
+				<div class="divider"></div>
+				<button class="login-btn">Submit</button>
+			</form>
+		</div>
+	</div>
+</body>
+<script>
+	var receivedErrorMessage = '{{ message|safe }}';
+
+	if(receivedErrorMessage != ''){
+		document.getElementById('message').innerHTML = receivedErrorMessage
+		document.getElementById('message').style.display = 'block';
+	}
+</script>
+
+
+</html>
